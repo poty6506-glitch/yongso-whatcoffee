@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f4f1ea">
+  <title>용소초 왓커피 음료 주문</title>
+  <style>
+    body{margin:0;background:#f4f1ea;color:#1f2923;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",Arial,sans-serif}
+    .loading{max-width:520px;margin:80px auto;padding:24px;text-align:center}
+    .error{background:#fffdfa;border:1px solid #dfd8ce;border-radius:16px;padding:20px;line-height:1.6}
+  </style>
+</head>
+<body>
+  <div class="loading" id="status">용소초 왓커피 주문 앱을 불러오는 중...</div>
+  <script>
+  (async()=>{
+    const src='https://ewlimstjrleofteykqtm.supabase.co/storage/v1/object/public/yongso-whatcoffee/index.html';
+    try{
+      const r=await fetch(src,{cache:'no-store'});
+      if(!r.ok) throw new Error('앱 파일을 불러오지 못했습니다. ('+r.status+')');
+      const html=await r.text();
+      document.open();
+      document.write(html);
+      document.close();
+    }catch(e){
+      document.getElementById('status').innerHTML='<div class="error"><b>앱을 불러오지 못했습니다.</b><br>'+String(e.message||e)+'<br><br>잠시 후 새로고침해 주세요.</div>';
+    }
+  })();
+  </script>
+</body>
+</html>
